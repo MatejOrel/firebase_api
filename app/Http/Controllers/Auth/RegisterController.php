@@ -29,7 +29,8 @@ class RegisterController extends Controller {
                   'showSex' => $oppositeSex,
                   'minAge' => 18,
                   'maxAge' => 100,
-                  'distance' => 142
+                  'distance' => 142,
+                  'dateOfBirth' => $request['date']
             ]);
          return response("Sign up successful", 200);
       }
