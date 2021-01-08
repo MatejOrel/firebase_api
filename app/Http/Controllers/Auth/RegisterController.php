@@ -11,7 +11,7 @@ use Kreait\Firebase\Auth as FirebaseAuth;
 use Kreait\Firebase\Exception\FirebaseException;
 class RegisterController extends Controller {
    protected function register(Request $request) {
-      try{/*
+      try{
          $fullname = $request['name'] . " " . $request['surname'];
          $database = app('firebase.database');
          $uID = $request['uID'];
@@ -31,7 +31,7 @@ class RegisterController extends Controller {
                   'maxAge' => 100,
                   'distance' => 142,
                   'dateOfBirth' => $request['date']
-            ]);*/
+            ]);
          return response($request['date'], 200);
       }
       catch(Exception $e){
