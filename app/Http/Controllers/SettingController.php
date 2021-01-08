@@ -9,7 +9,7 @@ class SettingController extends Controller
     public function userData(Request $request){
         try{
             $database = app('firebase.database');
-            $uID = $request->input('uID');
+            $uID = $request['uID'];
             $snapshot = $database -> getReference('Users/'.$uID)->getSnapshot();
             if(!$snapshot->hasChildren())
                 return response('failed', 422);

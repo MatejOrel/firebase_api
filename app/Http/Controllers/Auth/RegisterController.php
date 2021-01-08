@@ -12,12 +12,13 @@ use Kreait\Firebase\Exception\FirebaseException;
 class RegisterController extends Controller {
    protected function register(Request $request) {
       try{
-         $fullname = $request->input('name') . " " . $request->input('surname');
+         echo $request->getContent();
+         /*$fullname = $request['name'] . " " . $request['surname'];
          $userProperties = [
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
+            'email' => $request['email'],
+            'password' => $request['password'],
             'displayName' => $fullname,
-            'sex' => $request->input('gender'),
+            'sex' => $request['gender'],
          ];
          $database = app('firebase.database');
          $uID = $request->input('uID');
@@ -25,8 +26,8 @@ class RegisterController extends Controller {
          if($userProperties['sex'] == "Male")
             $oppositeSex = "Female";
          else
-            $oppositeSex = "Male";
-         $database->getReference('Users/'.$uID.'')
+            $oppositeSex = "Male";*/
+         /*$database->getReference('Users/'.$uID.'')
             ->set(
                [
                   'name' => $userProperties['displayName'],
@@ -36,8 +37,8 @@ class RegisterController extends Controller {
                   'minAge' => 18,
                   'maxAge' => 100,
                   'distance' => 142
-            ]);
-         return response("Sign up successful", 200);
+            ]);*/
+         return response($request->getContent(), 200);
       }
       catch(Exception $e){
          return response('failed', 422);
