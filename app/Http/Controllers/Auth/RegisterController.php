@@ -29,19 +29,13 @@ class RegisterController extends Controller {
       ]);
    }
    protected function register(Request $request) {
-      $this->validator($request->all())->validate();
       $fullname = $request->input('name') . " " . $request->input('surname');
       $userProperties = [
          'email' => $request->input('email'),
-         'emailVerified' => false,
          'password' => $request->input('password'),
          'displayName' => $fullname,
-         'disabled' => false,
          'sex' => $request->input('gender'),
       ];
-      $createdUser = $this->auth->createUser($userProperties);
-      $signInResult = $this->auth->signInWithEmailAndPassword($userProperties['email'],$userProperties['password']);
-      $uID = $signInResult->firebaseUserId();
       $database = app('firebase.database');
       $oppositeSex;
       if($userProperties['sex'] == "Male")
@@ -59,7 +53,5 @@ class RegisterController extends Controller {
                'maxAge' => 100,
                'distance' => 142
          ]);
-      Auth::loginUsingId($uID);
-      return redirect()->route('settings', ['first' => true]);
    }
 }
