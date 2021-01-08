@@ -13,31 +13,25 @@ class RegisterController extends Controller {
    protected function register(Request $request) {
       try{
          $fullname = $request['name'] . " " . $request['surname'];
-         $userProperties = [
-            'email' => $request['email'],
-            'password' => $request['password'],
-            'displayName' => $fullname,
-            'sex' => $request['gender'],
-         ];
          $database = app('firebase.database');
-         $uID = $request['uID'];
+         /*$uID = $request['uID'];
          $oppositeSex;
-         if($userProperties['sex'] == "Male")
+         if($request['sex'] == "Male")
             $oppositeSex = "Female";
          else
             $oppositeSex = "Male";
          $database->getReference('Users/'.$uID.'')
             ->set(
                [
-                  'name' => $userProperties['displayName'],
+                  'name' => $fullname,
                   'profileImageUrl' => "https://firebasestorage.googleapis.com/v0/b/dateish-5d381.appspot.com/o/profileImages%2Fno-profile-picture-300x216.jpg?alt=media&token=be771306-e3fe-4826-bac7-606508fe64da",
-                  'sex' => $userProperties['sex'],
+                  'sex' => $request['sex'],
                   'showSex' => $oppositeSex,
                   'minAge' => 18,
                   'maxAge' => 100,
                   'distance' => 142
-            ]);
-         return response("Sign up successful", 200);
+            ]);*/
+         return response($fullname, 200);
       }
       catch(Exception $e){
          return response('failed', 422);
