@@ -7,15 +7,23 @@ use Illuminate\Http\Request;
 class SettingController extends Controller
 {
     public function userData(Request $request){
-        $database = app('firebase.database');
-        $uID = $request->input('uID');
-        $keys = $database -> getReference('Users/'.$uID) -> getChildKeys();
-        $values = [];
-        $values['uId'] = $uID;
-        foreach ($keys as $attr){
-            $values[$attr] = $database -> getReference('Users/'.$uID.'/'.$attr) -> getValue();
+        try{
+            $database = app('firebase.database');
+            $uID = $request->input('uID');
+            $snapshot = $database -> getReference('Users/'.$uID)->getSnapshot();
+            /*if(!$snapshot->hasChildren())
+                return;*/
+            $keys = $database -> getReference('Users/'.$uID) -> getChildKeys();
+            $values = [];
+            $values['uId'] = $uID;
+            foreach ($keys as $attr){
+                $values[$attr] = $database -> getReference('Users/'.$uID.'/'.$attr) -> getValue();
+            }
+            return response($values, 200);
         }
-        return $values;
+        catch(Exception $e){
+            return response('failed', 422);
+        }
     }
 
     public function saveData(Request $request){
@@ -52,10 +60,4 @@ class SettingController extends Controller
                 'profileImageUrl' => $request->url
              ]);
     }
-
-    public function index(){
-        $userSettings = $this->userData();
-        return view('settings', $userSettings);
-    }
-
 }
