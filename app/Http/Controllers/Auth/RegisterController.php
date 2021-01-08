@@ -38,7 +38,7 @@ class RegisterController extends Controller {
                   'maxAge' => 100,
                   'distance' => 142
             ]);*/
-         return response($request->getContent(), 200);
+         return response($request['name'], 200);
       }
       catch(Exception $e){
          return response('failed', 422);
