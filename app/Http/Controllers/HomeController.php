@@ -34,10 +34,9 @@ class HomeController extends Controller
             $uID = $request['uID'];
             $allUserId = $database->getReference('Users/')->getChildKeys();
             $settingController = new SettingController;
-            $userData = $settingController->userData($request);
-            echo $userData['uId'];
+            $userData = json_decode($settingController->userData($request));
             if(!isset($userData['uId']))
-                return response("User doesn't exist", 200);
+                return response("User doesn't exist", 422);
             $users = [];
             foreach ($allUserId as $user){
                 $snapshot = $database->getReference('Users/'.$user)->getSnapshot();

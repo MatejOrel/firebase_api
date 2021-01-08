@@ -11,8 +11,8 @@ class SettingController extends Controller
             $database = app('firebase.database');
             $uID = $request->input('uID');
             $snapshot = $database -> getReference('Users/'.$uID)->getSnapshot();
-            /*if(!$snapshot->hasChildren())
-                return;*/
+            if(!$snapshot->hasChildren())
+                return;
             $keys = $database -> getReference('Users/'.$uID) -> getChildKeys();
             $values = [];
             $values['uId'] = $uID;
