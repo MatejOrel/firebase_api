@@ -20,6 +20,7 @@ class RegisterController extends Controller {
             'sex' => $request->input('gender'),
          ];
          $database = app('firebase.database');
+         $uID = $request->input('uID');
          $oppositeSex;
          if($userProperties['sex'] == "Male")
             $oppositeSex = "Female";
