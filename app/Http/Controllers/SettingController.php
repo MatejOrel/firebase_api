@@ -12,14 +12,14 @@ class SettingController extends Controller
             $uID = $request->input('uID');
             $snapshot = $database -> getReference('Users/'.$uID)->getSnapshot();
             if(!$snapshot->hasChildren())
-                return;
+                return response('failed', 422);
             $keys = $database -> getReference('Users/'.$uID) -> getChildKeys();
             $values = [];
             $values['uId'] = $uID;
             foreach ($keys as $attr){
                 $values[$attr] = $database -> getReference('Users/'.$uID.'/'.$attr) -> getValue();
             }
-            return response($values, 200);
+            return $values;
         }
         catch(Exception $e){
             return response('failed', 422);

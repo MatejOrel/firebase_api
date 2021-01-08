@@ -34,7 +34,7 @@ class HomeController extends Controller
             $uID = $request['uID'];
             $allUserId = $database->getReference('Users/')->getChildKeys();
             $settingController = new SettingController;
-            $userData = json_decode($settingController->userData($request));
+            $userData = $settingController->userData($request);
             if(!isset($userData['uId']))
                 return response("User doesn't exist", 422);
             $users = [];
