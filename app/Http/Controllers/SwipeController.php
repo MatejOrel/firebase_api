@@ -17,12 +17,13 @@ class SwipeController extends Controller
     }
 
     public function left(Request $request){
-        $database = app('firebase.database');
+        /*$database = app('firebase.database');
         $database->getReference('Users/'.$request['id'].'/connections/nope/'.$request['uId'])
         ->set(
             date("Y-m-d")
         );
-        $database->getReference('Users/'.$request['id'].'/connections/yeps/'.$request['uId'])->remove();
+        $database->getReference('Users/'.$request['id'].'/connections/yeps/'.$request['uId'])->remove();*/
+        return response($request['id'], 200);
     }
 
     public function right(Request $request){
