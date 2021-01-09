@@ -51,13 +51,4 @@ class SettingController extends Controller
                 'distance' => intval($userProperties['distance'])
              ]);
     }
-
-    public function saveUrl(Request $request){
-        $database = app('firebase.database');
-        $database->getReference('Users/'.auth()->user()->getAuthIdentifier().'/')
-         ->update(
-             [
-                'profileImageUrl' => $request->url
-             ]);
-    }
 }

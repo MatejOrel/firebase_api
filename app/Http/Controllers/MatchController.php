@@ -6,21 +6,21 @@ use Illuminate\Http\Request;
 
 class MatchController extends Controller
 {
-    public function matches(){
+    public function matches(Request $request){
         $database = app('firebase.database');
-        $matches = $database->getReference('Users/'.auth()->user()->getAuthIdentifier().'/connections/matches')->getSnapshot();
+        $matches = $database->getReference('Users/'.$request['uID'].'/connections/matches')->getSnapshot();
         $users = [];
         if($matches->exists()){
-            $matches = $database->getReference('Users/'.auth()->user()->getAuthIdentifier().'/connections/matches')->getChildKeys();
+            $matches = $database->getReference('Users/'.$request['uID'].'/connections/matches')->getChildKeys();
             foreach($matches as $uId){
-                $chatId = $database->getReference('Users/'.auth()->user()->getAuthIdentifier().'/connections/matches/'.$uId)->getChild('chatId')->getValue();
+                $chatId = $database->getReference('Users/'.$request['uID'].'/connections/matches/'.$uId)->getChild('chatId')->getValue();
                 $matchUser = $database->getReference('Users/'.$uId)->getSnapshot();
                 $users[$uId]['name'] = $matchUser->getChild('name')->getValue();
                 $users[$uId]['profileImageUrl'] = $matchUser->getChild('profileImageUrl')->getValue(); 
                 $users[$uId]['chatId'] = $chatId; 
             }
         }
-        return view('matches', compact('users'));
+        return $users;
     }
 
     public function chat(Request $request){

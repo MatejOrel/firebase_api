@@ -25,3 +25,4 @@ Route::post('registerUser', 'Auth\RegisterController@register');
 Route::post('leftswipe', 'SwipeController@left');
 Route::post('rightswipe', 'SwipeController@right');
 Route::post('saveData', 'SettingController@saveData');
+Route::get('matches', 'MatchController@matches');
