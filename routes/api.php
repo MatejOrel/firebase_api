@@ -26,3 +26,4 @@ Route::post('leftswipe', 'SwipeController@left');
 Route::post('rightswipe', 'SwipeController@right');
 Route::post('saveData', 'SettingController@saveData');
 Route::get('matches', 'MatchController@matches');
+Route::get('chat', 'MatchController@chat');

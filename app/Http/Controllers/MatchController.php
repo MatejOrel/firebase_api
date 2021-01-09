@@ -25,11 +25,11 @@ class MatchController extends Controller
 
     public function chat(Request $request){
         $database = app('firebase.database');
-        $chats = $database->getReference('Chat/'.$request->input('id'))->getValue();
+        $chats = $database->getReference('Chat/'.$request['id'])->getValue();
         $texts = [];
         foreach($chats as $key => $val){
             array_push($texts, [$val['createdByUser'] => $val['text']]);
         }
-        return view('chat', compact('texts'));
+        return $texts;
     }
 }
