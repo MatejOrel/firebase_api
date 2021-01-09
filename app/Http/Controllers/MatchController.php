@@ -33,6 +33,6 @@ class MatchController extends Controller
         foreach($chats as $key => $val){
             array_push($texts, [$val['createdByUser'] => $val['text']]);
         }
-        return [$texts, 'not empty'];
+        return $texts;
     }
 }
