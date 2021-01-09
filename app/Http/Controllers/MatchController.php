@@ -25,6 +25,7 @@ class MatchController extends Controller
 
     public function chat(Request $request){
         $database = app('firebase.database');
+        $neki = $database->getReference('Chat/'.$request['id']);
         $chats = $database->getReference('Chat/'.$request['id'])->getValue();
         $texts = [];
         foreach($chats as $key => $val){
