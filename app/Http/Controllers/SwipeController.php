@@ -19,11 +19,11 @@ class SwipeController extends Controller
     public function left(Request $request){
         $database = app('firebase.database');
         $neki = $database->getReference('Users/'.$request['id'].'/connections/nope/'.$request['uId']);
-        /*$database->getReference('Users/'.$request['id'].'/connections/nope/'.$request['uId'])
+        $database->getReference('Users/'.$request['id'].'/connections/nope/'.$request['uId'])
         ->set(
             date("Y-m-d")
         );
-        $database->getReference('Users/'.$request['id'].'/connections/yeps/'.$request['uId'])->remove();*/
+        $database->getReference('Users/'.$request['id'].'/connections/yeps/'.$request['uId'])->remove();
         return response($neki, 200);
     }
 
