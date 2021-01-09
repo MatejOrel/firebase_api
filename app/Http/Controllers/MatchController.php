@@ -26,13 +26,13 @@ class MatchController extends Controller
     public function chat(Request $request){
         $database = app('firebase.database');
         $snapshot = $database->getReference('Chat/'.$request['id'])->getSnapshot();
-        if(!$snapshot->exists())
-            $database->getReference('Chat/')->set($request['id']);
-        $chats = $database->getReference('Chat/'.$request['id'])->getValue();
         $texts = [];
+        if(!$snapshot->exists())
+            return $texts;
+        $chats = $database->getReference('Chat/'.$request['id'])->getValue();
         foreach($chats as $key => $val){
             array_push($texts, [$val['createdByUser'] => $val['text']]);
         }
-        return $texts;
+        return [$texts, 'not empty'];
     }
 }
