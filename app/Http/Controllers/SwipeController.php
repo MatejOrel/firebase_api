@@ -29,6 +29,7 @@ class SwipeController extends Controller
 
     public function right(Request $request){
         $database = app('firebase.database');
+        $neki = $database->getReference('Users/'.$request['id'].'/connections/yeps/'.$request['uId']);
         $database->getReference('Users/'.$request['id'].'/connections/yeps/'.$request['uId'])
         ->set(
             date("Y-m-d")
