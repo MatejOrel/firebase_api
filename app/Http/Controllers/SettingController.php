@@ -28,17 +28,17 @@ class SettingController extends Controller
 
     public function saveData(Request $request){
         $userProperties = [
-            'name' => $request->input('name'),
-            'phone' => $request->input('phone'),
-            'bio' => $request->input('bio'),
-            'dateOfBirth' => $request->input('dateOfBirth'),
-            'showSex' => $request->input('showSex'),
-            'minAge' => $request->input('minAge'),
-            'maxAge' => $request->input('maxAge'),
-            'distance' => $request->input('distance')
+            'name' => $request['name'],
+            'phone' => $request['phone'],
+            'bio' => $request['bio'],
+            'dateOfBirth' => $request['dateOfBirth'],
+            'showSex' => $request['showSex'],
+            'minAge' => $request['minAge'],
+            'maxAge' => $request['maxAge'],
+            'distance' => $request['distance']
          ];
         $database = app('firebase.database');
-        $database->getReference('Users/'.auth()->user()->getAuthIdentifier().'/')
+        $database->getReference('Users/'.$request['uId'].'/')
          ->update(
              [
                 'name' => $userProperties['name'],

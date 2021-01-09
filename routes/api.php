@@ -24,3 +24,4 @@ Route::get('userData', 'SettingController@userData');
 Route::post('registerUser', 'Auth\RegisterController@register');
 Route::post('leftswipe', 'SwipeController@left');
 Route::post('rightswipe', 'SwipeController@right');
+Route::post('saveData', 'SettingController@saveData');
