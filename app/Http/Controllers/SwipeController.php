@@ -10,6 +10,7 @@ class SwipeController extends Controller
         $database = app('firebase.database');
         $currentUserConnections =  $database->getReference('Users/'.$uId.'/connections/yeps/')->getSnapshot();
         if($currentUserConnections->hasChild($id)){
+            $neki = $database->getReference('Chat/');
             $key = $database->getReference()->getChild('Chat')->push()->getKey();
             $database->getReference('Users/'.$uId.'/connections/matches/'.$id.'/chatId')->set($key);
             $database->getReference('Users/'.$id.'/connections/matches/'.$uId.'/chatId')->set($key);
