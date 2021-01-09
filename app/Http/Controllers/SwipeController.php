@@ -6,32 +6,32 @@ use Illuminate\Http\Request;
 
 class SwipeController extends Controller
 {
-    public function isMatch(String $id){
+    public function isMatch(String $id, String $uId){
         $database = app('firebase.database');
-        $currentUserConnections =  $database->getReference('Users/'.auth()->user()->getAuthIdentifier().'/connections/yeps/')->getSnapshot();
+        $currentUserConnections =  $database->getReference('Users/'.$uId.'/connections/yeps/')->getSnapshot();
         if($currentUserConnections->hasChild($id)){
             $key = $database->getReference()->getChild('Chat')->push()->getKey();
-            $database->getReference('Users/'.auth()->user()->getAuthIdentifier().'/connections/matches/'.$id.'/chatId')->set($key);
-            $database->getReference('Users/'.$id.'/connections/matches/'.auth()->user()->getAuthIdentifier().'/chatId')->set($key);
+            $database->getReference('Users/'.$uId.'/connections/matches/'.$id.'/chatId')->set($key);
+            $database->getReference('Users/'.$id.'/connections/matches/'.$uId.'/chatId')->set($key);
         }
     }
 
     public function left(Request $request){
         $database = app('firebase.database');
-        $database->getReference('Users/'.$request->input('id').'/connections/nope/'.auth()->user()->getAuthIdentifier())
+        $database->getReference('Users/'.$request['id'].'/connections/nope/'.$request['uId'])
         ->set(
             date("Y-m-d")
         );
-        $database->getReference('Users/'.$request->input('id').'/connections/yeps/'.auth()->user()->getAuthIdentifier())->remove();
+        $database->getReference('Users/'.$request['id'].'/connections/yeps/'.$request['uId'])->remove();
     }
 
     public function right(Request $request){
         $database = app('firebase.database');
-        $database->getReference('Users/'.$request->input('id').'/connections/yeps/'.auth()->user()->getAuthIdentifier())
+        $database->getReference('Users/'.$request['id'].'/connections/yeps/'.$request['uId'])
         ->set(
             date("Y-m-d")
         );
-        $database->getReference('Users/'.$request->input('id').'/connections/nope/'.auth()->user()->getAuthIdentifier())->remove();
-        $this->isMatch($request->input('id'));
+        $database->getReference('Users/'.$request['id'].'/connections/nope/'.$request['uId'])->remove();
+        $this->isMatch($request['id'], $request['uId']);
     }
 }

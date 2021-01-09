@@ -22,3 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('findUsers', 'HomeController@findUsers');
 Route::get('userData', 'SettingController@userData');
 Route::post('registerUser', 'Auth\RegisterController@register');
+Route::post('leftswipe', 'SwipeController@left');
+Route::post('rightswipe', 'SwipeController@right');
