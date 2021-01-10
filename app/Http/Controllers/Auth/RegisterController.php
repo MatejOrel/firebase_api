@@ -32,7 +32,7 @@ class RegisterController extends Controller {
                   'distance' => 142,
                   'dateOfBirth' => $request['date'],
                   'latitude' => $request['latitude'],
-                  'longtitude' => $request['longitude']
+                  'longtitude' => $request['longtitude']
             ]);
          return response("User Signed Up Successfuly", 200);
       }

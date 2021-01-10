@@ -48,7 +48,8 @@ class HomeController extends Controller
                     $snapshot->getChild('sex')->getValue() == $userData['showSex'] &&
                     $snapshot->getChild('dateOfBirth')->getValue() != null &&
                     date_diff(new DateTime($snapshot->getChild('dateOfBirth')->getValue()), new DateTime())->format('%y') >= $userData['minAge'] && 
-                    date_diff(new DateTime($snapshot->getChild('dateOfBirth')->getValue()), new DateTime())->format('%y') <= $userData['maxAge']){
+                    date_diff(new DateTime($snapshot->getChild('dateOfBirth')->getValue()), new DateTime())->format('%y') <= $userData['maxAge'] &&
+                    distance($userData['latitude'],$userData['longtitude'],$snapshot->getChild('latitude')->getValue(),$snapshot->getChild('longtitude')->getValue()) <= $userData['distance']){
 
                         $users[$user] = $snapshot->getValue();
                     }
@@ -59,4 +60,21 @@ class HomeController extends Controller
             return response('failed', 422);
         }
     }
+
+    public function distance($lat1, $lon1, $lat2, $lon2) {
+        if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+          return 0;
+        }
+        else {
+          $theta = $lon1 - $lon2;
+          $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+          $dist = acos($dist);
+          $dist = rad2deg($dist);
+          $miles = $dist * 60 * 1.1515;
+      
+        return ($miles * 1.609344);
+        }
+      }
 }
+
+
