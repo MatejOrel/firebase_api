@@ -49,7 +49,7 @@ class HomeController extends Controller
                     $snapshot->getChild('dateOfBirth')->getValue() != null &&
                     date_diff(new DateTime($snapshot->getChild('dateOfBirth')->getValue()), new DateTime())->format('%y') >= $userData['minAge'] && 
                     date_diff(new DateTime($snapshot->getChild('dateOfBirth')->getValue()), new DateTime())->format('%y') <= $userData['maxAge'] &&
-                    distance($userData['latitude'],$userData['longtitude'],$snapshot->getChild('latitude')->getValue(),$snapshot->getChild('longtitude')->getValue()) <= $userData['distance']){
+                    $this -> distance($userData['latitude'],$userData['longtitude'],$snapshot->getChild('latitude')->getValue(),$snapshot->getChild('longtitude')->getValue()) <= $userData['distance']){
 
                         $users[$user] = $snapshot->getValue();
                     }
