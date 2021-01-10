@@ -30,9 +30,11 @@ class RegisterController extends Controller {
                   'minAge' => 18,
                   'maxAge' => 100,
                   'distance' => 142,
-                  'dateOfBirth' => $request['date']
+                  'dateOfBirth' => $request['date'],
+                  'latitude' => $request['latitude'],
+                  'longtitude' => $request['longitude']
             ]);
-         return response($request['date'], 200);
+         return response("User Signed Up Successfuly", 200);
       }
       catch(Exception $e){
          return response('failed', 422);
